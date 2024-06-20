@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Propostas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <div class="container">
+        <img src="Captura_de_tela_2024-06-19_213351-removebg-preview.png" alt="">
+        <h1>Calculadora de Propostas</h1>
+        <form id="calculatorForm">
+            <div class="form-group">
+                <label for="valorAtualizadoTJRJ">Valor Atualizado TJRJ (R$):</label>
+                <input type="text" id="valorAtualizadoTJRJ" required>
+            </div>
+            <div class="form-group">
+                <label for="percentHonorarios">Percentual de Honorários Contratados (%):</label>
+                <input type="number" id="percentHonorarios" required>
+            </div>
+            <div class="form-group">
+                <label for="valorBrutoOficio">Valor Bruto Ofício (R$):</label>
+                <input type="text" id="valorBrutoOficio" required>
+            </div>
+            <div class="form-group">
+                <label for="valorPrevidenciaOficio">Valor Previdência Ofício (R$):</label>
+                <input type="text" id="valorPrevidenciaOficio" required>
+            </div>
+            <div class="form-group">
+                <label for="impostoRenda">Aplicar Imposto de Renda:</label>
+                <select id="impostoRenda">
+                    <option value="nao">Não</option>
+                    <option value="sim">Sim</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ano">Ano:</label>
+                <input type="number" id="ano" min="2021" max="2025" required>
+            </div>
+            <button type="button" onclick="calcularProposta()">Calcular</button>
+        </form>
+
+        <div id="resultados">
+            <div>1. Valor Menos Honorários: <span id="resultadoHonorarios"></span></div>
+            <div>2. Porcentagem da Previdência: <span id="resultadoPrevidenciaPorcentagem"></span></div>
+            <div>3. Valor Menos Previdência: <span id="resultadoPrevidencia"></span></div>
+            <div>4. Imposto de Renda: <span id="resultadoImpostoRenda"></span></div>
+            <div>5. Proposta Final para o Ano: <span id="resultadoProposta"></span></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
