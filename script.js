@@ -8,6 +8,7 @@ function converterParaNumero(valor) {
     return parseFloat(valor.replace(/\./g, '').replace(',', '.'));
 }
 
+// Função para calcular a proposta
 function calcularProposta() {
     // Obtendo os valores do formulário e convertendo para números
     const valorBrutoOficio = converterParaNumero(document.getElementById('valorBrutoOficio').value);
