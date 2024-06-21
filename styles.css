@@ -8,34 +8,33 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    position: relative; /* Adiciona posiÃ§Ã£o relativa para posicionar a logo */
+    position: relative; /* Adiciona posição relativa para posicionar a logo */
 }
 
 .logo {
-    position: absolute; /* PosiÃ§Ã£o absoluta para a logo */
-    top: 20px; /* DistÃ¢ncia do topo */
-    left: 20px; /* DistÃ¢ncia da esquerda */
-    width: 100px; /* Largura da logo (ajuste conforme necessÃ¡rio) */
-    height: auto; /* Altura ajustÃ¡vel conforme a largura */
-    z-index: 1000; /* Coloca a logo acima de outros elementos se necessÃ¡rio */
+    position: absolute; /* Posição absoluta para a logo */
+    top: 20px; /* Distância do topo */
+    left: 20px; /* Distância da esquerda */
+    width: 80px; /* Largura da logo (ajuste conforme necessário) */
+    height: auto; /* Altura ajustável conforme a largura */
+    z-index: 1000; /* Coloca a logo acima de outros elementos se necessário */
 }
 
 .container {
     background-color: #ffc803; /* Amarelo */
     border-radius: 12px; /* Bordas arredondadas */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    padding: 60px;
-    width: 400px;
+    padding: 40px;
+    width: 350px; /* Reduz a largura */
     animation: slideIn 0.5s ease-out;
-    margin-top: 100px; /* EspaÃ§amento do topo para a logo */
-    
-    
+    margin-top: 80px; /* Espaçamento do topo para a logo */
 }
 
 h1, h2 {
     text-align: center;
     color: #3a3a3a; /* Azul escuro */
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduz a margem inferior */
+    font-size: 24px; /* Reduz o tamanho da fonte */
 }
 
 form {
@@ -44,22 +43,23 @@ form {
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Reduz a margem inferior */
 }
 
 label {
     color: #3a3a3a; /* Azul escuro */
     font-weight: bold;
+    font-size: 14px; /* Reduz o tamanho da fonte */
 }
 
 input[type="text"],
 input[type="number"],
 select {
-    padding: 10px;
-    font-size: 16px;
+    padding: 8px; /* Reduz o padding */
+    font-size: 14px; /* Reduz o tamanho da fonte */
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: calc(100% - 20px);
+    width: calc(100% - 16px); /* Ajusta a largura */
     margin-top: 5px;
 }
 
@@ -67,8 +67,8 @@ button {
     background-color: #4388f5; /* Azul */
     color: white;
     border: none;
-    padding: 12px 0;
-    font-size: 16px;
+    padding: 10px 0; /* Reduz o padding */
+    font-size: 14px; /* Reduz o tamanho da fonte */
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -79,8 +79,8 @@ button:hover {
 }
 
 #resultados {
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 15px; /* Reduz a margem superior */
+    padding: 15px; /* Reduz o padding */
     background-color: #f5f5f5;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -88,7 +88,7 @@ button:hover {
 }
 
 #resultados div {
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Reduz a margem inferior */
 }
 
 #resultados span {
@@ -99,22 +99,22 @@ button:hover {
 /* Media Queries para telas menores que 768px */
 @media only screen and (max-width: 767px) {
     body {
-        padding: 20px; /* Adiciona espaÃ§amento interno para telas menores */
+        padding: 20px; /* Adiciona espaçamento interno para telas menores */
     }
 
     .container {
-        width: 95%; /* Reduz a largura para 95% da largura da tela */
-        max-width: none; /* Remove a largura mÃ¡xima para ocupar a largura total */
+        width: 90%; /* Reduz a largura para 90% da largura da tela */
+        max-width: none; /* Remove a largura máxima para ocupar a largura total */
         margin: 20px auto; /* Centraliza o container na tela */
-        padding: 20px; /* Adiciona um espaÃ§amento interno */
+        padding: 20px; /* Adiciona um espaçamento interno */
     }
 
     h1, h2 {
-        font-size: 24px; /* Reduz o tamanho do texto para telas menores */
+        font-size: 20px; /* Reduz o tamanho do texto para telas menores */
     }
 
     button {
-        padding: 12px 0; /* Ajusta o tamanho dos botÃµes para telas menores */
+        padding: 10px 0; /* Ajusta o tamanho dos botões para telas menores */
     }
 }
 

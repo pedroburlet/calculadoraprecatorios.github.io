@@ -1,9 +1,19 @@
+// Função para formatar valores como reais (R$)
+function formatarReais(valor) {
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+// Função para converter valores formatados em string para número
+function converterParaNumero(valor) {
+    return parseFloat(valor.replace(/\./g, '').replace(',', '.'));
+}
+
 function calcularProposta() {
-    // Obtendo os valores do formulário
-    const valorBrutoOficio = parseFloat(document.getElementById('valorBrutoOficio').value);
-    const valorPrevidenciaOficio = parseFloat(document.getElementById('valorPrevidenciaOficio').value);
-    const valorAtualizadoTJRJ = parseFloat(document.getElementById('valorAtualizadoTJRJ').value);
-    const percentHonorarios = parseFloat(document.getElementById('percentHonorarios').value);
+    // Obtendo os valores do formulário e convertendo para números
+    const valorBrutoOficio = converterParaNumero(document.getElementById('valorBrutoOficio').value);
+    const valorPrevidenciaOficio = converterParaNumero(document.getElementById('valorPrevidenciaOficio').value);
+    const valorAtualizadoTJRJ = converterParaNumero(document.getElementById('valorAtualizadoTJRJ').value);
+    const percentHonorarios = parseFloat(document.getElementById('percentHonorarios').value.replace(',', '.'));
     const impostoRenda = document.getElementById('impostoRenda').value;
     const ano = parseInt(document.getElementById('ano').value);
 
@@ -14,11 +24,11 @@ function calcularProposta() {
 
     // Passo 2: Tirando a % dos honorários do valor atualizado
     const valorMenosHonorarios = valorAtualizadoTJRJ * (1 - percentHonorarios / 100);
-    document.getElementById('resultadoHonorarios').innerText = `R$ ${valorMenosHonorarios.toFixed(2)}`;
+    document.getElementById('resultadoHonorarios').innerText = formatarReais(valorMenosHonorarios);
 
     // Passo 3: Tirando a porcentagem da previdência do valor atualizado
     const valorMenosPrevidencia = valorMenosHonorarios * (1 - porcentagemPrevidencia / 100);
-    document.getElementById('resultadoPrevidencia').innerText = `R$ ${valorMenosPrevidencia.toFixed(2)}`;
+    document.getElementById('resultadoPrevidencia').innerText = formatarReais(valorMenosPrevidencia);
 
     // Passo 4: Aplicando o imposto de renda se necessário
     let valorAposImpostoRenda = valorMenosPrevidencia;
@@ -26,9 +36,9 @@ function calcularProposta() {
     if (impostoRenda === 'sim') {
         valorDescontoIR = valorMenosPrevidencia * 0.275;
         valorAposImpostoRenda = valorMenosPrevidencia - valorDescontoIR;
-        document.getElementById('resultadoImpostoRenda').innerText = `R$ ${valorAposImpostoRenda.toFixed(2)}`;
+        document.getElementById('resultadoImpostoRenda').innerText = formatarReais(valorAposImpostoRenda);
     } else {
-        document.getElementById('resultadoImpostoRenda').innerText = `R$ ${valorAposImpostoRenda.toFixed(2)}`;
+        document.getElementById('resultadoImpostoRenda').innerText = formatarReais(valorAposImpostoRenda);
     }
 
     // Passo 5: Calculando a proposta para o ano
@@ -55,8 +65,8 @@ function calcularProposta() {
     }
 
     if (!isNaN(valorProposta)) {
-        document.getElementById('resultadoAno').innerText = `R$ ${valorProposta.toFixed(2)}`;
-        document.getElementById('resultadoFinal').innerText = `R$ ${valorProposta.toFixed(2)}`;
+        document.getElementById('resultadoAno').innerText = formatarReais(valorProposta);
+        document.getElementById('resultadoFinal').innerText = formatarReais(valorProposta);
     } else {
         document.getElementById('resultadoAno').innerText = `Ano inválido`;
         document.getElementById('resultadoFinal').innerText = `Ano inválido`;
