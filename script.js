@@ -28,8 +28,9 @@ function calcularProposta() {
     document.getElementById('resultadoHonorarios').innerText = formatarReais(valorMenosHonorarios);
 
     // Passo 3: Tirando a porcentagem da previdência do valor atualizado
-    const valorMenosPrevidencia = valorMenosHonorarios * (1 - porcentagemPrevidencia / 100);
-    document.getElementById('resultadoPrevidencia').innerText = formatarReais(valorMenosPrevidencia);
+    const descontoPrevidencia = valorMenosHonorarios * (porcentagemPrevidencia / 100);
+    const valorMenosPrevidencia = valorMenosHonorarios - descontoPrevidencia;
+    document.getElementById('resultadoPrevidencia').innerText = `Valor líquido: ${formatarReais(valorMenosPrevidencia)} \n Valor descontado: ${formatarReais(descontoPrevidencia)}`;
 
     // Passo 4: Aplicando o imposto de renda se necessário
     let valorAposImpostoRenda = valorMenosPrevidencia;
@@ -37,9 +38,9 @@ function calcularProposta() {
     if (impostoRenda === 'sim') {
         valorDescontoIR = valorMenosPrevidencia * 0.275;
         valorAposImpostoRenda = valorMenosPrevidencia - valorDescontoIR;
-        document.getElementById('resultadoImpostoRenda').innerText = formatarReais(valorAposImpostoRenda);
+        document.getElementById('resultadoImpostoRenda').innerText = `Valor líquido atualizado: ${formatarReais(valorAposImpostoRenda)} \n Valor descontado: ${formatarReais(valorDescontoIR)}`;
     } else {
-        document.getElementById('resultadoImpostoRenda').innerText = formatarReais(valorAposImpostoRenda);
+        document.getElementById('resultadoImpostoRenda').innerText = `Valor líquido atualizado: ${formatarReais(valorAposImpostoRenda)} \n Valor descontado: R$ 0,00`;
     }
 
     // Passo 5: Calculando a proposta para o ano
@@ -72,4 +73,6 @@ function calcularProposta() {
         document.getElementById('resultadoAno').innerText = `Ano inválido`;
         document.getElementById('resultadoFinal').innerText = `Ano inválido`;
     }
+
 }
+
