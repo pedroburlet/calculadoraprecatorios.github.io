@@ -1,71 +1,64 @@
-function parseReal(valor) {
-    // Remove os pontos de milhar e substitui a vírgula por ponto
-    return parseFloat(valor.replace(/\./g, '').replace(',', '.'));
-}
-
-function formatarReal(valor) {
-    // Formata o valor para exibir em formato de moeda brasileira
-    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
-
 function calcularProposta() {
     // Obtendo os valores do formulário
-    const valorAtualizadoTJRJ = parseReal(document.getElementById('valorAtualizadoTJRJ').value);
+    const valorBrutoOficio = parseFloat(document.getElementById('valorBrutoOficio').value);
+    const valorPrevidenciaOficio = parseFloat(document.getElementById('valorPrevidenciaOficio').value);
+    const valorAtualizadoTJRJ = parseFloat(document.getElementById('valorAtualizadoTJRJ').value);
     const percentHonorarios = parseFloat(document.getElementById('percentHonorarios').value);
-    const valorBrutoOficio = parseReal(document.getElementById('valorBrutoOficio').value);
-    const valorPrevidenciaOficio = parseReal(document.getElementById('valorPrevidenciaOficio').value);
     const impostoRenda = document.getElementById('impostoRenda').value;
     const ano = parseInt(document.getElementById('ano').value);
 
-    // Passo 1: Calcular o valor após descontar os honorários
+    // Passo 1: Calculando e arredondando a porcentagem da previdência
+    let porcentagemPrevidencia = (valorPrevidenciaOficio / valorBrutoOficio) * 100;
+    porcentagemPrevidencia = Math.round(porcentagemPrevidencia);
+    document.getElementById('resultadoPrevidenciaPorcentagem').innerText = `${porcentagemPrevidencia}%`;
+
+    // Passo 2: Tirando a % dos honorários do valor atualizado
     const valorMenosHonorarios = valorAtualizadoTJRJ * (1 - percentHonorarios / 100);
-    document.getElementById('resultadoHonorarios').innerText = formatarReal(valorMenosHonorarios);
+    document.getElementById('resultadoHonorarios').innerText = `R$ ${valorMenosHonorarios.toFixed(2)}`;
 
-    // Passo 2: Calcular a porcentagem da previdência sobre o valor bruto do ofício
-    const porcentagemPrevidencia = (valorPrevidenciaOficio / valorBrutoOficio) * 100;
-    document.getElementById('resultadoPrevidenciaPorcentagem').innerText = `${porcentagemPrevidencia.toFixed(2)}%`;
-
-    // Passo 3: Calcular o valor menos a previdência sobre o valor após descontar os honorários
+    // Passo 3: Tirando a porcentagem da previdência do valor atualizado
     const valorMenosPrevidencia = valorMenosHonorarios * (1 - porcentagemPrevidencia / 100);
-    document.getElementById('resultadoPrevidencia').innerText = formatarReal(valorMenosPrevidencia);
+    document.getElementById('resultadoPrevidencia').innerText = `R$ ${valorMenosPrevidencia.toFixed(2)}`;
 
-    // Passo 4: Aplicar o imposto de renda se necessário sobre o valor após descontar os honorários e a previdência
-    let valorAposImpostoRenda;
+    // Passo 4: Aplicando o imposto de renda se necessário
+    let valorAposImpostoRenda = valorMenosPrevidencia;
+    let valorDescontoIR = 0;
     if (impostoRenda === 'sim') {
-        valorAposImpostoRenda = valorMenosPrevidencia * (1 - 0.275); // Retira 27.5% de imposto de renda
-        document.getElementById('resultadoImpostoRenda').innerText = `(${formatarReal(valorMenosPrevidencia * 0.275)} de IR)`;
+        valorDescontoIR = valorMenosPrevidencia * 0.275;
+        valorAposImpostoRenda = valorMenosPrevidencia - valorDescontoIR;
+        document.getElementById('resultadoImpostoRenda').innerText = `R$ ${valorAposImpostoRenda.toFixed(2)}`;
     } else {
-        valorAposImpostoRenda = valorMenosPrevidencia;
-        document.getElementById('resultadoImpostoRenda').innerText = `(Sem IR)`;
+        document.getElementById('resultadoImpostoRenda').innerText = `R$ ${valorAposImpostoRenda.toFixed(2)}`;
     }
 
-    // Passo 5: Calcular a proposta final para o ano selecionado
+    // Passo 5: Calculando a proposta para o ano
     let valorProposta;
     switch (ano) {
         case 2021:
-            valorProposta = valorAposImpostoRenda * (1 - 0.32); // Retira 32%
+            valorProposta = valorAposImpostoRenda * 0.68;
             break;
         case 2022:
-            valorProposta = valorAposImpostoRenda * (1 - 0.35); // Retira 35%
+            valorProposta = valorAposImpostoRenda * 0.65;
             break;
         case 2023:
-            valorProposta = valorAposImpostoRenda * (1 - 0.45); // Retira 45%
+            valorProposta = valorAposImpostoRenda * 0.55;
             break;
         case 2024:
-            valorProposta = valorAposImpostoRenda * (1 - 0.55); // Retira 55%
+            valorProposta = valorAposImpostoRenda * 0.45;
             break;
         case 2025:
-            valorProposta = valorAposImpostoRenda * (1 - 0.65); // Retira 65%
+            valorProposta = valorAposImpostoRenda * 0.35;
             break;
         default:
             valorProposta = NaN;
             break;
     }
 
-    // Exibir a proposta final na página
     if (!isNaN(valorProposta)) {
-        document.getElementById('resultadoProposta').innerText = formatarReal(valorProposta);
+        document.getElementById('resultadoAno').innerText = `R$ ${valorProposta.toFixed(2)}`;
+        document.getElementById('resultadoFinal').innerText = `R$ ${valorProposta.toFixed(2)}`;
     } else {
-        document.getElementById('resultadoProposta').innerText = 'Ano inválido. Por favor, insira um ano entre 2021 e 2025.';
+        document.getElementById('resultadoAno').innerText = `Ano inválido`;
+        document.getElementById('resultadoFinal').innerText = `Ano inválido`;
     }
 }

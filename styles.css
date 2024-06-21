@@ -8,16 +8,16 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    position: relative; /* Adiciona posição relativa para posicionar a logo */
+    position: relative; /* Adiciona posiÃ§Ã£o relativa para posicionar a logo */
 }
 
 .logo {
-    position: absolute; /* Posição absoluta para a logo */
-    top: 20px; /* Distância do topo */
-    left: 20px; /* Distância da esquerda */
-    width: 100px; /* Largura da logo (ajuste conforme necessário) */
-    height: auto; /* Altura ajustável conforme a largura */
-    z-index: 1000; /* Coloca a logo acima de outros elementos se necessário */
+    position: absolute; /* PosiÃ§Ã£o absoluta para a logo */
+    top: 20px; /* DistÃ¢ncia do topo */
+    left: 20px; /* DistÃ¢ncia da esquerda */
+    width: 100px; /* Largura da logo (ajuste conforme necessÃ¡rio) */
+    height: auto; /* Altura ajustÃ¡vel conforme a largura */
+    z-index: 1000; /* Coloca a logo acima de outros elementos se necessÃ¡rio */
 }
 
 .container {
@@ -27,7 +27,7 @@ body {
     padding: 60px;
     width: 400px;
     animation: slideIn 0.5s ease-out;
-    margin-top: 100px; /* Espaçamento do topo para a logo */
+    margin-top: 100px; /* EspaÃ§amento do topo para a logo */
     
     
 }
@@ -99,14 +99,14 @@ button:hover {
 /* Media Queries para telas menores que 768px */
 @media only screen and (max-width: 767px) {
     body {
-        padding: 20px; /* Adiciona espaçamento interno para telas menores */
+        padding: 20px; /* Adiciona espaÃ§amento interno para telas menores */
     }
 
     .container {
         width: 95%; /* Reduz a largura para 95% da largura da tela */
-        max-width: none; /* Remove a largura máxima para ocupar a largura total */
+        max-width: none; /* Remove a largura mÃ¡xima para ocupar a largura total */
         margin: 20px auto; /* Centraliza o container na tela */
-        padding: 20px; /* Adiciona um espaçamento interno */
+        padding: 20px; /* Adiciona um espaÃ§amento interno */
     }
 
     h1, h2 {
@@ -114,7 +114,7 @@ button:hover {
     }
 
     button {
-        padding: 12px 0; /* Ajusta o tamanho dos botões para telas menores */
+        padding: 12px 0; /* Ajusta o tamanho dos botÃµes para telas menores */
     }
 }
 
