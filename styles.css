@@ -6,8 +6,8 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start; /* Altera align-items para flex-start para permitir que o conteúdo se expanda para baixo */
+    min-height: 100vh; /* Use min-height em vez de height para permitir expansão */
     position: relative; /* Adiciona posição relativa para posicionar a logo */
 }
 
@@ -24,17 +24,18 @@ body {
     background-color: #ffc803; /* Amarelo */
     border-radius: 12px; /* Bordas arredondadas */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    width: 350px; /* Reduz a largura */
+    padding: 20px; /* Reduzido para acomodar telas menores */
+    width: 90%; /* Ajusta a largura para 90% da tela */
+    max-width: 350px; /* Define uma largura máxima */
     animation: slideIn 0.5s ease-out;
-    margin-top: 80px; /* Espaçamento do topo para a logo */
+    margin-top: 60px; /* Espaçamento do topo para a logo */
 }
 
 h1, h2 {
     text-align: center;
     color: #3a3a3a; /* Azul escuro */
-    margin-bottom: 15px; /* Reduz a margem inferior */
-    font-size: 24px; /* Reduz o tamanho da fonte */
+    margin-bottom: 10px; /* Reduz a margem inferior */
+    font-size: 20px; /* Reduz o tamanho da fonte */
 }
 
 form {
@@ -43,7 +44,7 @@ form {
 }
 
 .form-group {
-    margin-bottom: 12px; /* Reduz a margem inferior */
+    margin-bottom: 10px; /* Reduz a margem inferior */
 }
 
 label {
@@ -79,8 +80,8 @@ button:hover {
 }
 
 #resultados {
-    margin-top: 15px; /* Reduz a margem superior */
-    padding: 15px; /* Reduz o padding */
+    margin-top: 10px; /* Reduz a margem superior */
+    padding: 10px; /* Reduz o padding */
     background-color: #f5f5f5;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -99,22 +100,22 @@ button:hover {
 /* Media Queries para telas menores que 768px */
 @media only screen and (max-width: 767px) {
     body {
-        padding: 20px; /* Adiciona espaçamento interno para telas menores */
+        padding: 10px; /* Adiciona espaçamento interno para telas menores */
     }
 
     .container {
-        width: 90%; /* Reduz a largura para 90% da largura da tela */
+        width: 100%; /* Reduz a largura para 100% da largura da tela */
         max-width: none; /* Remove a largura máxima para ocupar a largura total */
         margin: 20px auto; /* Centraliza o container na tela */
         padding: 20px; /* Adiciona um espaçamento interno */
     }
 
     h1, h2 {
-        font-size: 20px; /* Reduz o tamanho do texto para telas menores */
+        font-size: 18px; /* Reduz o tamanho do texto para telas menores */
     }
 
     button {
-        padding: 10px 0; /* Ajusta o tamanho dos botões para telas menores */
+        padding: 8px 0; /* Ajusta o tamanho dos botões para telas menores */
     }
 }
 
