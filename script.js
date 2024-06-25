@@ -18,6 +18,11 @@ function formatarEntrada(campo) {
     campo.value = valor;
 }
 
+// Função para arredondar para baixo ao múltiplo mais próximo de 1.000,00
+function arredondarParaBaixo(valor) {
+    return Math.floor(valor / 1000) * 1000;
+}
+
 // Função para calcular a proposta
 function calcularProposta() {
     // Obtendo os valores do formulário e convertendo para números
@@ -76,7 +81,7 @@ function calcularProposta() {
             valorProposta = valorAposImpostoRenda * 0.45;
             break;
         case 2025:
-            valorProposta = valorAposImpostoRenda * 0.35;
+            valorProposta = valorAposImpostoRenda * 0.34;
             break;
         default:
             valorProposta = NaN;
@@ -84,6 +89,7 @@ function calcularProposta() {
     }
 
     if (!isNaN(valorProposta)) {
+        valorProposta = arredondarParaBaixo(valorProposta);
         document.getElementById('resultadoAno').innerText = formatarReais(valorProposta);
     } else {
         document.getElementById('resultadoAno').innerText = `Ano inválido`;
