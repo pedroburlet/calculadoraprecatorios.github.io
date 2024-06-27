@@ -1,97 +1,48 @@
-// Função para formatar valores como reais (R$)
-function formatarReais(valor) {
-    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
+document.getElementById('calcForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    
+    const valorTJRJ = parseFloat(document.getElementById('valorTJRJ').value);
+    const percentualHonorarios = parseFloat(document.getElementById('percentualHonorarios').value) / 100;
+    const valorBrutoOficio = parseFloat(document.getElementById('valorBrutoOficio').value);
+    const valorPrevidenciaOficio = parseFloat(document.getElementById('valorPrevidenciaOficio').value);
+    const aplicarIR = document.getElementById('aplicarIR').value === 'sim';
+    const descontoPrioridade = document.getElementById('descontoPrioridade').value === 'sim';
+    const orcamento = parseInt(document.getElementById('orcamento').value);
 
-// Função para converter valores formatados em string para número
-function converterParaNumero(valor) {
-    return parseFloat(valor.replace(/\./g, '').replace(',', '.'));
-}
+    // Mapear os descontos baseados no ano do orçamento
+    const descontos = {
+        2021: 0.32,
+        2022: 0.35,
+        2023: 0.45,
+        2024: 0.55,
+        2025: 0.66
+    };
 
-// Função para formatar a entrada de texto como reais (R$) durante a digitação
-function formatarEntrada(campo) {
-    let valor = campo.value;
-    valor = valor.replace(/\D/g, '');
-    valor = (valor / 100).toFixed(2) + '';
-    valor = valor.replace(".", ",");
-    valor = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-    campo.value = valor;
-}
+    const descontoOrcamento = descontos[orcamento] || 0;
 
-// Função para arredondar para baixo ao múltiplo mais próximo de 1.000,00
-function arredondarParaBaixo(valor) {
-    return Math.floor(valor / 1000) * 1000;
-}
+    // Calcular a porcentagem da previdência
+    const porcentagemPrevidencia = valorPrevidenciaOficio / valorBrutoOficio;
 
-// Função para calcular a proposta
-function calcularProposta() {
-    // Obtendo os valores do formulário e convertendo para números
-    const valorBrutoOficio = converterParaNumero(document.getElementById('valorBrutoOficio').value);
-    const valorPrevidenciaOficio = converterParaNumero(document.getElementById('valorPrevidenciaOficio').value);
-    const valorAtualizadoTJRJ = converterParaNumero(document.getElementById('valorAtualizadoTJRJ').value);
-    const percentHonorarios = parseFloat(document.getElementById('percentHonorarios').value.replace(',', '.'));
-    const impostoRenda = document.getElementById('impostoRenda').value;
-    const descontoPrioridade = document.getElementById('descontoPrioridade').value;
-    const ano = parseInt(document.getElementById('ano').value);
+    // Calcular os valores conforme os dados fornecidos
+    const valorDescontadoHonorarios = valorTJRJ * percentualHonorarios;
+    const valorDescontadoPrevidencia = valorTJRJ * porcentagemPrevidencia;
 
-    // Passo 1: Aplicando o desconto de prioridade se necessário
-    let valorComDescontoPrioridade = valorAtualizadoTJRJ;
-    if (descontoPrioridade === 'sim') {
-        valorComDescontoPrioridade -= 141000;
+    let descontoIR = 0;
+    if (aplicarIR) {
+        descontoIR = valorTJRJ * 0.275; // Supondo 27.5% de IR
     }
 
-    // Passo 2: Calculando e arredondando a porcentagem da previdência
-    let porcentagemPrevidencia = (valorPrevidenciaOficio / valorBrutoOficio) * 100;
-    porcentagemPrevidencia = Math.round(porcentagemPrevidencia);
-    document.getElementById('resultadoPrevidenciaPorcentagem').innerText = `${porcentagemPrevidencia}%`;
+    const valorLiquidoAtualizado = valorTJRJ - valorDescontadoHonorarios - valorDescontadoPrevidencia - descontoIR;
+    const valorProposta = valorLiquidoAtualizado * (1 - descontoOrcamento);
 
-    // Passo 3: Tirando a % dos honorários do valor atualizado com desconto de prioridade
-    const valorMenosHonorarios = valorComDescontoPrioridade * (1 - percentHonorarios / 100);
-    document.getElementById('resultadoHonorarios').innerText = formatarReais(valorMenosHonorarios);
+    const resultado = `
+        <p>1. Valor Menos Honorários: R$ ${valorDescontadoHonorarios.toFixed(2).replace('.', ',')}</p>
+        <p>2. Porcentagem da Previdência: ${(porcentagemPrevidencia * 100).toFixed(2)}%</p>
+        <p>3. Valor descontado Previdência: R$ ${valorDescontadoPrevidencia.toFixed(2).replace('.', ',')}</p>
+        <p>4. Desconto Imposto de Renda: R$ ${descontoIR.toFixed(2).replace('.', ',')}</p>
+        <p>5. Valor líquido atualizado: R$ ${valorLiquidoAtualizado.toFixed(2).replace('.', ',')}</p>
+        <p>6. Valor proposta: R$ ${valorProposta.toFixed(2).replace('.', ',')}</p>
+    `;
 
-    // Passo 4: Tirando a porcentagem da previdência do valor atualizado
-    const descontoPrevidencia = valorMenosHonorarios * (porcentagemPrevidencia / 100);
-    const valorMenosPrevidencia = valorMenosHonorarios - descontoPrevidencia;
-    document.getElementById('resultadoPrevidencia').innerText = `Valor líquido: ${formatarReais(valorMenosPrevidencia)} \n Valor descontado: ${formatarReais(descontoPrevidencia)}`;
-
-    // Passo 5: Aplicando o imposto de renda se necessário
-    let valorAposImpostoRenda = valorMenosPrevidencia;
-    let valorDescontoIR = 0;
-    if (impostoRenda === 'sim') {
-        valorDescontoIR = valorMenosPrevidencia * 0.275;
-        valorAposImpostoRenda = valorMenosPrevidencia - valorDescontoIR;
-        document.getElementById('resultadoImpostoRenda').innerText = `Valor líquido atualizado: ${formatarReais(valorAposImpostoRenda)} \n Valor descontado: ${formatarReais(valorDescontoIR)}`;
-    } else {
-        document.getElementById('resultadoImpostoRenda').innerText = `Valor líquido atualizado: ${formatarReais(valorAposImpostoRenda)} \n Valor descontado: ${formatarReais(0)}`;
-    }
-
-    // Passo 6: Calculando a proposta para o ano
-    let valorProposta;
-    switch (ano) {
-        case 2021:
-            valorProposta = valorAposImpostoRenda * 0.68;
-            break;
-        case 2022:
-            valorProposta = valorAposImpostoRenda * 0.65;
-            break;
-        case 2023:
-            valorProposta = valorAposImpostoRenda * 0.55;
-            break;
-        case 2024:
-            valorProposta = valorAposImpostoRenda * 0.45;
-            break;
-        case 2025:
-            valorProposta = valorAposImpostoRenda * 0.34;
-            break;
-        default:
-            valorProposta = NaN;
-            break;
-    }
-
-    if (!isNaN(valorProposta)) {
-        valorProposta = arredondarParaBaixo(valorProposta);
-        document.getElementById('resultadoAno').innerText = formatarReais(valorProposta);
-    } else {
-        document.getElementById('resultadoAno').innerText = `Ano inválido`;
-    }
-}
+    document.getElementById('result').innerHTML = resultado;
+});
