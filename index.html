@@ -8,41 +8,44 @@
 </head>
 <body>
     <div class="container">
-        <h1>Calculadora de Automação</h1>
+        <div class="header">
+            <img src="eprecatorios.png" alt="Logo" class="logo">
+            <h1>Calculadora de Proposta</h1>
+        </div>
         <form id="calcForm">
             <label for="valorTJRJ">Valor Atualizado TJRJ (R$):</label>
-            <input type="number" id="valorTJRJ" name="valorTJRJ" required>
-            
+            <input type="text" id="valorTJRJ" name="valorTJRJ">
+
             <label for="percentualHonorarios">Percentual de Honorários Contratados (%):</label>
-            <input type="number" id="percentualHonorarios" name="percentualHonorarios" required>
-            
+            <input type="text" id="percentualHonorarios" name="percentualHonorarios">
+
             <label for="valorBrutoOficio">Valor Bruto Ofício (R$):</label>
-            <input type="number" id="valorBrutoOficio" name="valorBrutoOficio" required>
-            
+            <input type="text" id="valorBrutoOficio" name="valorBrutoOficio">
+
             <label for="valorPrevidenciaOficio">Valor Previdência Ofício (R$):</label>
-            <input type="number" id="valorPrevidenciaOficio" name="valorPrevidenciaOficio" required>
-            
+            <input type="text" id="valorPrevidenciaOficio" name="valorPrevidenciaOficio">
+
             <label for="aplicarIR">Aplicar Imposto de Renda:</label>
-            <select id="aplicarIR" name="aplicarIR" required>
+            <select id="aplicarIR" name="aplicarIR">
                 <option value="sim">Sim</option>
                 <option value="nao">Não</option>
             </select>
-            
+
             <label for="descontoPrioridade">Desconto Prioridade:</label>
-            <select id="descontoPrioridade" name="descontoPrioridade" required>
+            <select id="descontoPrioridade" name="descontoPrioridade">
                 <option value="sim">Sim</option>
                 <option value="nao">Não</option>
             </select>
-            
+
             <label for="orcamento">Orçamento:</label>
-            <select id="orcamento" name="orcamento" required>
+            <select id="orcamento" name="orcamento">
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
                 <option value="2023">2023</option>
                 <option value="2024">2024</option>
                 <option value="2025">2025</option>
             </select>
-            
+
             <button type="submit">Calcular</button>
         </form>
         <div id="result"></div>

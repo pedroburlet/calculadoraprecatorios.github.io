@@ -1,25 +1,39 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
+    background-color: #0066cc; /* Fundo azul */
+    font-family: Arial, sans-serif;
 }
 
 .container {
-    background-color: #ffffff;
+    background-color: #ffcc00; /* Calculadora amarela */
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 90%;
+    max-width: 600px;
+    box-sizing: border-box;
     text-align: center;
 }
 
-h1 {
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 20px;
+}
+
+.logo {
+    max-width: 180px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: black; /* Título em preto */
+    margin: 0;
 }
 
 form {
@@ -28,29 +42,35 @@ form {
 }
 
 label {
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-top: 10px;
+    color: black; /* Rótulos em preto */
+    text-align: left;
 }
 
 input, select, button {
-    margin-bottom: 15px;
+    margin-top: 5px;
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #0066cc;
     border-radius: 5px;
+    font-size: 16px;
+    color: black; /* Texto dos inputs e selects em preto */
 }
 
 button {
-    background-color: #007bff;
-    color: #ffffff;
+    margin-top: 20px;
+    background-color: #0066cc;
+    color: white;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #005bb5;
 }
 
 #result {
     margin-top: 20px;
-    text-align: left;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    color: black; /* Texto do resultado em preto */
 }
