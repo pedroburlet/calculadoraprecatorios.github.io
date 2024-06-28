@@ -63,7 +63,7 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     };
 
     const resultado = `
-        <p>1. Valor Menos Honorários: ${formatarReal(valorDescontadoHonorarios)}</p>
+        <p>1. Valor descontado de Honorários: ${formatarReal(valorDescontadoHonorarios)}</p>
         <p>2. Porcentagem da Previdência: ${(porcentagemPrevidencia * 100).toFixed(2)}%</p>
         <p>3. Valor descontado Previdência: ${formatarReal(valorDescontadoPrevidencia)}</p>
         <p>4. Desconto Imposto de Renda: ${formatarReal(descontoIR)}</p>
