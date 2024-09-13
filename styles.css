@@ -75,7 +75,6 @@ button:hover {
     color: black; /* Texto do resultado em preto */
 }
 
-/* Adicionar media queries para responsividade */
 @media (max-width: 600px) {
     .container {
         width: 95%;
@@ -95,5 +94,3 @@ button:hover {
         font-size: 0.9rem;
     }
 }
-
-

@@ -25,42 +25,46 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     const aplicarIR = document.getElementById('aplicarIR').value === 'sim';
     const descontoPrioridade = document.getElementById('descontoPrioridade').value === 'sim';
     const orcamento = parseInt(document.getElementById('orcamento').value);
+    const tipoPrecatório = document.getElementById('tipoPrecatório').value;
 
-    const descontos = {
-        2021: 0.32,
-        2022: 0.35,
-        2023: 0.45,
-        2024: 0.55,
-        2025: 0.66
-    };
-
-    const descontoOrcamento = descontos[orcamento] || 0;
-
+    let valorLiquidoAtualizado = valorTJRJ;
     const porcentagemPrevidencia = valorPrevidenciaOficio / valorBrutoOficio;
-
+    
     const valorDescontadoHonorarios = valorTJRJ * percentualHonorarios;
     const valorDescontadoPrevidencia = valorTJRJ * porcentagemPrevidencia;
-
     let descontoIR = 0;
+    
     if (aplicarIR) {
-        descontoIR = valorTJRJ * 0.275; // Supondo 27.5% de IR
+        descontoIR = valorTJRJ * 0.275;
     }
 
-    let valorLiquidoAtualizado = valorTJRJ - valorDescontadoHonorarios - valorDescontadoPrevidencia - descontoIR;
+    valorLiquidoAtualizado -= (valorDescontadoHonorarios + valorDescontadoPrevidencia + descontoIR);
 
-    // Descontar R$ 141.000,00 se Desconto Prioridade for "Sim"
     if (descontoPrioridade) {
         valorLiquidoAtualizado -= 141000;
     }
 
-    let valorProposta = valorLiquidoAtualizado * (1 - descontoOrcamento);
+    let valorProposta;
 
-    // Arredondar para o milhar anterior
+    if (tipoPrecatório === 'municipio') {
+        // Se for Município, use 2025 e calcule com 60%
+        valorProposta = valorLiquidoAtualizado * 0.60;
+    } else {
+        // Para o Estado, continue usando os cálculos atuais
+        const descontos = {
+            2021: 0.32,
+            2022: 0.35,
+            2023: 0.45,
+            2024: 0.55,
+            2025: 0.66
+        };
+        const descontoOrcamento = descontos[orcamento] || 0;
+        valorProposta = valorLiquidoAtualizado * (1 - descontoOrcamento);
+    }
+
     valorProposta = Math.floor(valorProposta / 1000) * 1000;
 
-    const formatarReal = (valor) => {
-        return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    };
+    const formatarReal = (valor) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
     const resultado = `
         <p>1. Valor descontado de Honorários: ${formatarReal(valorDescontadoHonorarios)}</p>
