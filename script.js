@@ -52,11 +52,11 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     } else {
         // Para o Estado, continue usando os cálculos atuais
         const descontos = {
-            2021: 0.32,
-            2022: 0.35,
-            2023: 0.45,
-            2024: 0.55,
-            2025: 0.66
+            2022: 0.33,
+            2023: 0.40,
+            2024: 0.52,
+            2025: 0.60,
+            2026: 0.65
         };
         const descontoOrcamento = descontos[orcamento] || 0;
         valorProposta = valorLiquidoAtualizado * (1 - descontoOrcamento);
