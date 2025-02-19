@@ -41,7 +41,7 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     valorLiquidoAtualizado -= (valorDescontadoHonorarios + valorDescontadoPrevidencia + descontoIR);
 
     if (descontoPrioridade) {
-        valorLiquidoAtualizado -= 141000;
+        valorLiquidoAtualizado -= 151000;
     }
 
     let valorProposta;
