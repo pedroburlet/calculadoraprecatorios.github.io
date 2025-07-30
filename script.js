@@ -54,6 +54,8 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
         const descontos = {
             2022: 0.42,
             2023: 0.53,
+            2024: 0.70,
+            2025: 0.70,
             2026: 0.71,
             2027: 0.72
         };
