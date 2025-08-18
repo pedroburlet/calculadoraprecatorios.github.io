@@ -28,7 +28,11 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     const tipoPrecatório = document.getElementById('tipoPrecatório').value;
 
     let valorLiquidoAtualizado = valorTJRJ;
-    const porcentagemPrevidencia = valorPrevidenciaOficio / valorBrutoOficio;
+
+    // evita divisão por zero se não houver previdência
+    const porcentagemPrevidencia = valorBrutoOficio > 0 
+        ? valorPrevidenciaOficio / valorBrutoOficio 
+        : 0;
     
     const valorDescontadoHonorarios = valorTJRJ * percentualHonorarios;
     const valorDescontadoPrevidencia = valorTJRJ * porcentagemPrevidencia;
@@ -47,22 +51,27 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
     let valorProposta;
 
     if (tipoPrecatório === 'municipio') {
-        // Se for Município, use 2025 e calcule com 60%
+        // Se for Município, usa 60%
         valorProposta = valorLiquidoAtualizado * 0.60;
     } else {
-        // Para o Estado, continue usando os cálculos atuais
+        // Para o Estado
         const descontos = {
-            2022: 0.42,
-            2023: 0.53,
-            2024: 0.70,
-            2025: 0.70,
-            2026: 0.67,
-            2027: 0.72
+            2022: 42,
+            2023: 53,
+            2024: 70,
+            2025: 70,
+            2026: 67, // 33% de proposta
+            2027: 72
         };
-        const descontoOrcamento = descontos[orcamento] || 0;
-        valorProposta = valorLiquidoAtualizado * (1 - descontoOrcamento);
+
+        const descontoPct = descontos[orcamento] ?? 0;
+        const propostaPct = 100 - descontoPct; // Exemplo: 33 para 2026
+
+        valorProposta = (valorLiquidoAtualizado * propostaPct) / 100;
+        valorProposta = Math.round(valorProposta * 100) / 100; // arredonda para centavos
     }
 
+    // Arredonda para baixo no milhar
     valorProposta = Math.floor(valorProposta / 1000) * 1000;
 
     const formatarReal = (valor) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -78,4 +87,5 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
 
     document.getElementById('result').innerHTML = resultado;
 });
+
 
