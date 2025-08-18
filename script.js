@@ -56,7 +56,7 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
             2023: 0.53,
             2024: 0.70,
             2025: 0.70,
-            2026: 0.71,
+            2026: 0.67,
             2027: 0.72
         };
         const descontoOrcamento = descontos[orcamento] || 0;
@@ -78,3 +78,4 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
 
     document.getElementById('result').innerHTML = resultado;
 });
+
