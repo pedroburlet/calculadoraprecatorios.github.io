@@ -60,7 +60,7 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
             2023: 53,
             2024: 70,
             2025: 70,
-            2026: 67, // 33% de proposta
+            2026: 70, // 33% de proposta
             2027: 72
         };
 
@@ -87,5 +87,6 @@ document.getElementById('calcForm').addEventListener('submit', function (event) 
 
     document.getElementById('result').innerHTML = resultado;
 });
+
 
 
